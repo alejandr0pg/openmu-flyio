@@ -1,0 +1,27 @@
+app = "openmu-connect"
+primary_region = "mia"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  APP_ID = "connectServer"
+  ASPNETCORE_URLS = "http://+:8080"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 44405
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 44405
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true

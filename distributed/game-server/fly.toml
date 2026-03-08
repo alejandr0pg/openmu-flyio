@@ -1,0 +1,27 @@
+app = "openmu-game"
+primary_region = "mia"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  GS_ID = "0"
+  ASPNETCORE_URLS = "http://+:8080"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 55901
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 55901
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true

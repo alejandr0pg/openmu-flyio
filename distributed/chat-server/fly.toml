@@ -1,0 +1,27 @@
+app = "openmu-chat"
+primary_region = "mia"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  APP_ID = "chatServer"
+  ASPNETCORE_URLS = "http://+:8080"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 55980
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 55980
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
