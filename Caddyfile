@@ -1,0 +1,14 @@
+:8080 {
+    handle /api/* {
+        reverse_proxy localhost:8081
+    }
+    handle /auth/* {
+        reverse_proxy localhost:8081
+    }
+    handle /health {
+        reverse_proxy localhost:8081
+    }
+    handle {
+        reverse_proxy localhost:8082
+    }
+}

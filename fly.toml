@@ -4,10 +4,7 @@ primary_region = "dfw"
 [build]
   dockerfile = "Dockerfile"
 
-[env]
-  ASPNETCORE_URLS = "http://+:8080"
-
-# Admin Panel (HTTP)
+# Admin Panel + Registration API via Caddy (HTTP)
 [[services]]
   internal_port = 8080
   protocol = "tcp"

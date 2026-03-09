@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Y1muJqNk+kA=",
+  "success": true,
+  "projectFilePath": "/Users/alejandroperez/openmu-flyio/registration-api/RegistrationApi.csproj",
+  "expectedPackageFiles": [
+    "/Users/alejandroperez/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
+    "/Users/alejandroperez/.nuget/packages/npgsql/9.0.3/npgsql.9.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
