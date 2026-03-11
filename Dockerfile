@@ -20,8 +20,8 @@ RUN dotnet publish -c Release -o /app/publish
 # Stage 3: Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine AS final
 
-# Install Caddy and Kerberos libs (needed by Npgsql)
-RUN apk add --no-cache caddy krb5-libs
+# Install Caddy, Kerberos libs (needed by Npgsql), and netcat for port checks
+RUN apk add --no-cache caddy krb5-libs netcat-openbsd
 
 WORKDIR /app
 COPY --from=build-openmu /app/publish ./openmu/
@@ -33,7 +33,7 @@ RUN chmod +x /app/entrypoint.sh && \
     chmod 777 /app/openmu/logs && \
     chmod 777 /app/openmu/ConnectionSettings.xml
 
-EXPOSE 8080 44405 55901 55980
+EXPOSE 8080 44405 55901 55902 55980
 
 USER $APP_UID
 ENTRYPOINT ["/app/entrypoint.sh"]

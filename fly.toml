@@ -41,6 +41,11 @@ primary_region = "dfw"
   [[services.ports]]
     port = 44405
 
+  [[services.tcp_checks]]
+    grace_period = "5m"
+    interval = 15000
+    timeout = 5000
+
 # Game Server 0 - GMO Client (TCP)
 [[services]]
   internal_port = 55901
@@ -48,6 +53,11 @@ primary_region = "dfw"
 
   [[services.ports]]
     port = 55901
+
+  [[services.tcp_checks]]
+    grace_period = "5m"
+    interval = 15000
+    timeout = 5000
 
 # Game Server 0 - Open Source Client (TCP)
 [[services]]
@@ -57,37 +67,11 @@ primary_region = "dfw"
   [[services.ports]]
     port = 55902
 
-# Game Server 1 - GMO Client (TCP)
-[[services]]
-  internal_port = 55903
-  protocol = "tcp"
+  [[services.tcp_checks]]
+    grace_period = "5m"
+    interval = 15000
+    timeout = 5000
 
-  [[services.ports]]
-    port = 55903
-
-# Game Server 1 - Open Source Client (TCP)
-[[services]]
-  internal_port = 55904
-  protocol = "tcp"
-
-  [[services.ports]]
-    port = 55904
-
-# Game Server 2 - GMO Client (TCP)
-[[services]]
-  internal_port = 55905
-  protocol = "tcp"
-
-  [[services.ports]]
-    port = 55905
-
-# Game Server 2 - Open Source Client (TCP)
-[[services]]
-  internal_port = 55906
-  protocol = "tcp"
-
-  [[services.ports]]
-    port = 55906
 
 # Chat Server (TCP)
 [[services]]
@@ -96,6 +80,11 @@ primary_region = "dfw"
 
   [[services.ports]]
     port = 55980
+
+  [[services.tcp_checks]]
+    grace_period = "5m"
+    interval = 15000
+    timeout = 5000
 
 [[vm]]
   size = "shared-cpu-4x"

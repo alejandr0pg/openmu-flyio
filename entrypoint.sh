@@ -60,6 +60,23 @@ echo "ConnectionSettings.xml generated: Host=${DB_HOST} Port=${DB_PORT} SSL=${DB
 # Build DB connection string for RegistrationApi
 export DB_CONNECTION="Host=${DB_HOST};Port=${DB_PORT};Username=${DB_ADMIN_USER};Password=${DB_ADMIN_PW};Database=${DB_NAME};SSL Mode=${DB_SSL};Timeout=30;Trust Server Certificate=true"
 
+# Helper: wait for a TCP port to be available
+wait_for_port() {
+    local port=$1
+    local timeout=${2:-300}
+    local start=$(date +%s)
+    echo "Waiting for port $port to be available (timeout: ${timeout}s)..."
+    while ! nc -z 127.0.0.1 "$port" 2>/dev/null; do
+        local now=$(date +%s)
+        if [ $((now - start)) -ge $timeout ]; then
+            echo "ERROR: Timeout waiting for port $port"
+            return 1
+        fi
+        sleep 2
+    done
+    echo "Port $port is now available."
+}
+
 # Start RegistrationApi on port 8081 (background)
 echo "Starting RegistrationApi on port 8081..."
 cd /app/regapi
@@ -73,6 +90,9 @@ cd /app/openmu
 ASPNETCORE_URLS=http://+:8082 dotnet MUnique.OpenMU.Startup.dll "$@" &
 OPENMU_PID=$!
 cd /app
+
+# Wait for OpenMU game server to start listening before proceeding
+wait_for_port 55901 300 || { echo "OpenMU failed to start listeners"; kill $OPENMU_PID $REGAPI_PID 2>/dev/null; exit 1; }
 
 # Start Caddy reverse proxy on port 8080 (foreground-ish)
 echo "Starting Caddy reverse proxy on port 8080..."
