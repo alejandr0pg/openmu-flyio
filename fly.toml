@@ -4,6 +4,9 @@ primary_region = "dfw"
 [build]
   dockerfile = "Dockerfile"
 
+[deploy]
+  wait_timeout = "15m"
+
 # Admin Panel + Registration API via Caddy (HTTP)
 [[services]]
   internal_port = 8080
@@ -24,7 +27,7 @@ primary_region = "dfw"
 
   [[services.http_checks]]
     interval = 15000
-    grace_period = "10m"
+    grace_period = "15m"
     method = "GET"
     path = "/health"
     protocol = "http"
@@ -38,11 +41,6 @@ primary_region = "dfw"
   [[services.ports]]
     port = 44405
 
-  [[services.tcp_checks]]
-    interval = 15000
-    timeout = 5000
-    grace_period = "10m"
-
 # Game Server 0 - GMO Client (TCP)
 [[services]]
   internal_port = 55901
@@ -50,11 +48,6 @@ primary_region = "dfw"
 
   [[services.ports]]
     port = 55901
-
-  [[services.tcp_checks]]
-    interval = 15000
-    timeout = 5000
-    grace_period = "10m"
 
 # Game Server 0 - Open Source Client (TCP)
 [[services]]
@@ -103,11 +96,6 @@ primary_region = "dfw"
 
   [[services.ports]]
     port = 55980
-
-  [[services.tcp_checks]]
-    interval = 15000
-    timeout = 5000
-    grace_period = "10m"
 
 [[vm]]
   size = "shared-cpu-4x"
