@@ -161,7 +161,9 @@ app.MapPost("/auth/apple", async (HttpContext ctx) =>
 
 app.MapPost("/api/register", async (RegisterRequest req, HttpContext ctx) =>
 {
-    var ip = ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+    var ip = ctx.Request.Headers["X-Forwarded-For"].FirstOrDefault()?.Split(',')[0].Trim()
+        ?? ctx.Connection.RemoteIpAddress?.ToString()
+        ?? "unknown";
     var logger = ctx.RequestServices.GetRequiredService<ILogger<Program>>();
 
     if (!rateLimiter.IsAllowed(ip))
