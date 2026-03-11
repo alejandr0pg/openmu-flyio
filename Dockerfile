@@ -37,4 +37,4 @@ EXPOSE 8080 44405 55901 55980
 
 USER $APP_UID
 ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["-autostart", "-reinit", "-resolveIP:168.220.89.83"]
+CMD ["-autostart", "-resolveIP:168.220.89.83"]
